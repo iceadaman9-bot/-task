@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account - ETHIO TASK</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -148,6 +150,11 @@
       background: #15803d;
     }
 
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .login {
       text-align: center;
       margin-top: 20px;
@@ -167,6 +174,27 @@
       text-align: center;
       margin-top: 18px;
       font-size: 13px;
+    }
+
+    #message {
+      display: none;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 9px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    #message.success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    #message.error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
     }
 
     @media (max-width: 500px) {
@@ -196,6 +224,8 @@
       <p class="subtitle">
         Join ETHIO TASK and start working or hiring.
       </p>
+
+      <div id="message"></div>
 
       <div class="role-title">
         I want to:
@@ -281,7 +311,7 @@
           </span>
         </label>
 
-        <button type="submit">
+        <button type="submit" id="registerButton">
           Create Account
         </button>
 
@@ -301,27 +331,124 @@
   </div>
 
   <script>
-    document
-      .getElementById("registerForm")
-      .addEventListener("submit", function(event) {
 
-        event.preventDefault();
+    const SUPABASE_URL =
+      "https://zqvfakxlxzlalgqbnqcp.supabase.co";
 
-        const password =
-          document.getElementById("password").value;
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable__4p7_6QaOrWwGaaS2Oe0wg_FOt8pJGi";
 
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
-        if (password !== confirmPassword) {
-          alert("Passwords do not match.");
-          return;
+    const form =
+      document.getElementById("registerForm");
+
+    const button =
+      document.getElementById("registerButton");
+
+    const message =
+      document.getElementById("message");
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = type;
+    }
+
+    form.addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+      const role =
+        document.querySelector(
+          'input[name="role"]:checked'
+        ).value;
+
+      if (password !== confirmPassword) {
+        showMessage(
+          "Passwords do not match.",
+          "error"
+        );
+        return;
+      }
+
+      if (password.length < 8) {
+        showMessage(
+          "Password must be at least 8 characters.",
+          "error"
+        );
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Creating account...";
+
+      try {
+
+        const { data, error } =
+          await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+              data: {
+                full_name: name,
+                phone: phone,
+                role: role
+              }
+            }
+
+          });
+
+        if (error) {
+          throw error;
         }
 
-        alert(
-          "Registration form is ready. Real account creation, OTP verification and secure login will be connected to the backend."
+        showMessage(
+          "Account created successfully! Please check your email to confirm your account.",
+          "success"
         );
-      });
+
+        form.reset();
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          error.message || "Registration failed.",
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+        button.textContent = "Create Account";
+
+      }
+
+    });
+
   </script>
 
 </body>

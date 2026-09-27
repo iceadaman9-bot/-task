@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="ETHIO TASK Dashboard">
+
+  <title>Dashboard - ETHIO TASK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    /* HEADER */
+
+    header {
+      height: 65px;
+      background: #111827;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6%;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #22c55e;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .notification {
+      position: relative;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .badge {
+      position: absolute;
+      top: -7px;
+      right: -8px;
+
+      width: 18px;
+      height: 18px;
+
+      border-radius: 50%;
+
+      background: #ef4444;
+      color: white;
+
+      font-size: 11px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+
+      border-radius: 50%;
+
+      background: #22c55e;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: bold;
+    }
+
+    /* LAYOUT */
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      width: 240px;
+      background: white;
+      border-right: 1px solid #e5e7eb;
+
+      padding: 25px 15px;
+    }
+
+    .menu-title {
+      color: #9ca3af;
+      font-size: 12px;
+      font-weight: bold;
+
+      margin: 10px 12px;
+    }
+
+    .menu {
+      list-style: none;
+    }
+
+    .menu li {
+      margin-bottom: 5px;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      padding: 12px;
+
+      border-radius: 9px;
+
+      text-decoration: none;
+      color: #374151;
+
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .logout {
+      margin-top: 25px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 20px;
+    }
+
+    .logout a {
+      color: #dc2626;
+    }
+
+    /* MAIN */
+
+    main {
+      flex: 1;
+      padding: 30px;
+      overflow-x: hidden;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* STAT CARDS */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+      gap: 16px;
+
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 3px 15px rgba(0,0,0,.05);
+    }
+
+    .stat-icon {
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .stat h3 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .stat p {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    /* CONTENT */
+
+    .grid {
+      display: grid;
+
+      grid-template-columns:
+        2fr 1fr;
+
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 22px;
+
+      box-shadow:
+        0 3px 15px rgba(0,0,0,.05);
+    }
+
+    .card-header {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 18px;
+    }
+
+    .card-header h2 {
+      font-size: 19px;
+    }
+
+    .view {
+      color: #16a34a;
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      font-weight: bold;
+    }
+
+    /* TASK */
+
+    .task {
+      border: 1px solid #e5e7eb;
+
+      border-radius: 10px;
+
+      padding: 16px;
+
+      margin-bottom: 12px;
+    }
+
+    .task:last-child {
+      margin-bottom: 0;
+    }
+
+    .task-top {
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 10px;
+    }
+
+    .task h3 {
+      font-size: 15px;
+
+      margin-bottom: 6px;
+    }
+
+    .task p {
+      color: #6b7280;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+    .price {
+      color: #16a34a;
+
+      font-weight: bold;
+
+      white-space: nowrap;
+    }
+
+    .tag {
+      display: inline-block;
+
+      margin-top: 10px;
+
+      padding: 5px 9px;
+
+      background: #f3f4f6;
+
+      border-radius: 6px;
+
+      color: #6b7280;
+
+      font-size: 11px;
+    }
+
+    /* QUICK ACTIONS */
+
+    .actions {
+      display: grid;
+
+      gap: 10px;
+    }
+
+    .action {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 13px;
+
+      border: 1px solid #e5e7eb;
+
+      border-radius: 9px;
+
+      text-decoration: none;
+
+      color: #111827;
+
+      font-size: 14px;
+
+      font-weight: bold;
+    }
+
+    .action:hover {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    .action-icon {
+      font-size: 21px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .sidebar {
+        width: 70px;
+        padding: 20px 8px;
+      }
+
+      .menu-title {
+        display: none;
+      }
+
+      .menu a {
+        justify-content: center;
+        font-size: 0;
+      }
+
+      .menu a span {
+        font-size: 21px;
+      }
+
+      .logout a {
+        font-size: 0;
+      }
+
+      main {
+        padding: 20px 15px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      header {
+        padding: 0 15px;
+      }
+
+      .logo {
+        font-size: 17px;
+      }
+
+      .welcome h1 {
+        font-size: 23px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stat {
+        padding: 15px;
+      }
+
+      .stat h3 {
+        font-size: 20px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="logo">
+      🇪🇹 <span>ETHIO</span> TASK
+    </div>
+
+    <div class="header-right">
+
+      <div class="notification">
+        🔔
+        <div class="badge">3</div>
+      </div>
+
+      <div class="avatar">
+        U
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <div class="layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+      <div class="menu-title">
+        MENU
+      </div>
+
+      <ul class="menu">
+
+        <li>
+          <a href="dashboard.html" class="active">
+            <span>🏠</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="tasks.html">
+            <span>🔎</span>
+            <span>Find Tasks</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="post-task.html">
+            <span>➕</span>
+            <span>Post a Task</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="wallet.html">
+            <span>💰</span>
+            <span>Wallet</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="messages.html">
+            <span>💬</span>
+            <span>Messages</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="profile.html">
+            <span>👤</span>
+            <span>Profile</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="notifications.html">
+            <span>🔔</span>
+            <span>Notifications</span>
+          </a>
+        </li>
+
+      </ul>
+
+
+      <div class="logout">
+
+        <a href="login.html">
+          <span>🚪</span>
+          Logout
+        </a>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+
+      <div class="welcome">
+
+        <h1>
+          Welcome to ETHIO TASK 👋
+        </h1>
+
+        <p>
+          Manage your tasks, work and payments from one place.
+        </p>
+
+      </div>
+
+
+      <!-- STATISTICS -->
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <div class="stat-icon">
+            💰
+          </div>
+
+          <h3>
+            0 ETB
+          </h3>
+
+          <p>
+            Wallet Balance
+          </p>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-icon">
+            📋
+          </div>
+
+          <h3>
+            0
+          </h3>
+
+          <p>
+            Active Tasks
+          </p>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-icon">
+            💼
+          </div>
+
+          <h3>
+            0
+          </h3>
+
+          <p>
+            Completed Jobs
+          </p>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-icon">
+            ⭐
+          </div>
+
+          <h3>
+            0.0
+          </h3>
+
+          <p>
+            Rating
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid">
+
+
+        <!-- RECENT TASKS -->
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <h2>
+              Recent Tasks
+            </h2>
+
+            <a href="tasks.html" class="view">
+              View All
+            </a>
+
+          </div>
+
+
+          <div class="task">
+
+            <div class="task-top">
+
+              <div>
+
+                <h3>
+                  No tasks available yet
+                </h3>
+
+                <p>
+                  Tasks posted by clients will appear here.
+                </p>
+
+              </div>
+
+              <div class="price">
+                —
+              </div>
+
+            </div>
+
+            <span class="tag">
+              Waiting for tasks
+            </span>
+
+          </div>
+
+
+          <div class="task">
+
+            <div class="task-top">
+
+              <div>
+
+                <h3>
+                  Start using ETHIO TASK
+                </h3>
+
+                <p>
+                  Post a task or find work to begin.
+                </p>
+
+              </div>
+
+              <div class="price">
+                —
+              </div>
+
+            </div>
+
+            <span class="tag">
+              Getting Started
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <h2>
+              Quick Actions
+            </h2>
+
+          </div>
+
+
+          <div class="actions">
+
+            <a href="post-task.html" class="action">
+
+              <span class="action-icon">
+                ➕
+              </span>
+
+              Post a Task
+
+            </a>
+
+
+            <a href="tasks.html" class="action">
+
+              <span class="action-icon">
+                🔎
+              </span>
+
+              Find Work
+
+            </a>
+
+
+            <a href="wallet.html" class="action">
+
+              <span class="action-icon">
+                💰
+              </span>
+
+              Open Wallet
+
+            </a>
+
+
+            <a href="profile.html" class="action">
+
+              <span class="action-icon">
+                👤
+              </span>
+
+              Edit Profile
+
+            </a>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+</body>
+</html>

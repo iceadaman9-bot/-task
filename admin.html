@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Dashboard - ETHIO TASK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7f5;
+      color: #1f2937;
+    }
+
+    header {
+      background: #0f5132;
+      color: white;
+      padding: 16px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .admin-badge {
+      background: rgba(255,255,255,0.15);
+      padding: 8px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .title {
+      margin-bottom: 25px;
+    }
+
+    .title h1 {
+      color: #0f5132;
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .title p {
+      color: #667085;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    }
+
+    .stat-icon {
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .stat span {
+      display: block;
+      color: #667085;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .stat strong {
+      font-size: 25px;
+      color: #101828;
+    }
+
+    /* CARDS */
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .card-header h2 {
+      font-size: 20px;
+      color: #101828;
+    }
+
+    .view-all {
+      color: #0f5132;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* TABLE */
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th {
+      text-align: left;
+      background: #f8faf9;
+      padding: 13px;
+      font-size: 13px;
+      color: #667085;
+    }
+
+    td {
+      padding: 15px 13px;
+      border-bottom: 1px solid #eaecf0;
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .active {
+      background: #ecfdf3;
+      color: #067647;
+    }
+
+    .pending {
+      background: #fff8e7;
+      color: #8a5a00;
+    }
+
+    .completed {
+      background: #eff8ff;
+      color: #175cd3;
+    }
+
+    .dispute {
+      background: #fef3f2;
+      color: #b42318;
+    }
+
+    /* ACTIONS */
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .action {
+      border: 1px solid #d0d5dd;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: white;
+    }
+
+    .action:hover {
+      border-color: #0f5132;
+      transform: translateY(-2px);
+    }
+
+    .action-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .action h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .action p {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* COMMISSION */
+
+    .commission {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .commission-box {
+      background: #f8faf9;
+      border: 1px solid #eaecf0;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .commission-box span {
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .commission-box strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 25px;
+      color: #0f5132;
+    }
+
+    /* SECURITY */
+
+    .security {
+      background: #fff8e7;
+      border: 1px solid #f5d48a;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .security h3 {
+      color: #8a5a00;
+      margin-bottom: 9px;
+    }
+
+    .security p {
+      color: #594600;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .security-list {
+      margin-top: 12px;
+      padding-left: 20px;
+    }
+
+    .security-list li {
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    /* NAVIGATION */
+
+    .navigation {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .navigation a {
+      text-decoration: none;
+      background: white;
+      color: #0f5132;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      border: 1px solid #eaecf0;
+    }
+
+    .navigation a:hover {
+      background: #ecfdf3;
+    }
+
+    @media (max-width: 900px) {
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .actions {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 14px 4%;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .admin-badge {
+        font-size: 11px;
+        padding: 7px 9px;
+      }
+
+      main {
+        margin-top: 22px;
+      }
+
+      .title h1 {
+        font-size: 25px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .commission {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    🇪🇹 ETHIO TASK
+  </div>
+
+  <div class="admin-badge">
+    🔐 OWNER / ADMIN
+  </div>
+
+</header>
+
+
+<main>
+
+  <div class="title">
+
+    <h1>
+      Admin Dashboard
+    </h1>
+
+    <p>
+      Manage and monitor the ETHIO TASK marketplace.
+    </p>
+
+  </div>
+
+
+  <!-- NAVIGATION -->
+
+  <div class="navigation">
+
+    <a href="dashboard.html">
+      User Dashboard
+    </a>
+
+    <a href="tasks.html">
+      Marketplace
+    </a>
+
+    <a href="wallet.html">
+      Wallet
+    </a>
+
+    <a href="messages.html">
+      Messages
+    </a>
+
+    <a href="notifications.html">
+      Notifications
+    </a>
+
+  </div>
+
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        👥
+      </div>
+
+      <span>
+        Total Users
+      </span>
+
+      <strong>
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        📋
+      </div>
+
+      <span>
+        Total Tasks
+      </span>
+
+      <strong>
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        💰
+      </div>
+
+      <span>
+        Protected Payments
+      </span>
+
+      <strong>
+        0 ETB
+      </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        ⚠️
+      </div>
+
+      <span>
+        Open Disputes
+      </span>
+
+      <strong>
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- RECENT TASKS -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <h2>
+        Recent Tasks
+      </h2>
+
+      <span class="view-all">
+        View All
+      </span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Task</th>
+            <th>Client</th>
+            <th>Budget</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              No tasks yet
+            </td>
+
+            <td>
+              —
+            </td>
+
+            <td>
+              0 ETB
+            </td>
+
+            <td>
+              <span class="status pending">
+                Waiting
+              </span>
+            </td>
+
+            <td>
+              —
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- USER MANAGEMENT -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <h2>
+        User Management
+      </h2>
+
+      <span
+        class="view-all"
+        onclick="showUsers()"
+      >
+        Manage Users
+      </span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr>
+
+            <td>
+              No registered users yet
+            </td>
+
+            <td>
+              —
+            </td>
+
+            <td>
+              —
+            </td>
+
+            <td>
+              —
+            </td>
+
+            <td>
+              —
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- QUICK ACTIONS -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <h2>
+        Admin Controls
+      </h2>
+
+    </div>
+
+
+    <div class="actions">
+
+
+      <div
+        class="action"
+        onclick="manageUsers()"
+      >
+
+        <div class="action-icon">
+          👥
+        </div>
+
+        <h3>
+          Users
+        </h3>
+
+        <p>
+          Manage accounts, roles and permissions.
+        </p>
+
+      </div>
+
+
+      <div
+        class="action"
+        onclick="manageTasks()"
+      >
+
+        <div class="action-icon">
+          📋
+        </div>
+
+        <h3>
+          Tasks
+        </h3>
+
+        <p>
+          Review tasks, applications and contracts.
+        </p>
+
+      </div>
+
+
+      <div
+        class="action"
+        onclick="managePayments()"
+      >
+
+        <div class="action-icon">
+          💳
+        </div>
+
+        <h3>
+          Payments
+        </h3>
+
+        <p>
+          Monitor protected payments and transactions.
+        </p>
+
+      </div>
+
+
+      <div
+        class="action"
+        onclick="manageDisputes()"
+      >
+
+        <div class="action-icon">
+          ⚖️
+        </div>
+
+        <h3>
+          Disputes
+        </h3>
+
+        <p>
+          Review and resolve marketplace disputes.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- COMMISSION -->
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <h2>
+        Platform Revenue
+      </h2>
+
+    </div>
+
+
+    <div class="commission">
+
+      <div class="commission-box">
+
+        <span>
+          Total Transaction Volume
+        </span>
+
+        <strong>
+          0.00 ETB
+        </strong>
+
+      </div>
+
+
+      <div class="commission-box">
+
+        <span>
+          Platform Commission
+        </span>
+
+        <strong>
+          0.00 ETB
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECURITY -->
+
+  <div class="card">
+
+    <div class="security">
+
+      <h3>
+        🔐 Security & Owner Protection
+      </h3>
+
+      <p>
+        The Admin Dashboard must be protected by
+        server-side authentication and authorization
+        before production use.
+      </p>
+
+      <ul class="security-list">
+
+        <li>
+          Admin access must require secure authentication.
+        </li>
+
+        <li>
+          Admin permissions must be checked on the server.
+        </li>
+
+        <li>
+          Payment records must not be editable from frontend code.
+        </li>
+
+        <li>
+          Payment provider secrets must never be placed
+          inside HTML or JavaScript.
+        </li>
+
+        <li>
+          Important actions should be recorded in an audit log.
+        </li>
+
+        <li>
+          Payment webhooks must be verified by the backend.
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script>
+
+  function showUsers() {
+
+    alert(
+      "👥 User Management\n\n" +
+      "User accounts, roles, verification and permissions " +
+      "will be connected to the secure backend."
+    );
+
+  }
+
+
+  function manageUsers() {
+
+    alert(
+      "👥 Users\n\n" +
+      "The production version will allow the owner/admin " +
+      "to manage users securely."
+    );
+
+  }
+
+
+  function manageTasks() {
+
+    alert(
+      "📋 Tasks\n\n" +
+      "The production version will allow the admin to " +
+      "review tasks, applications and contracts."
+    );
+
+  }
+
+
+  function managePayments() {
+
+    alert(
+      "💳 Payments\n\n" +
+      "Payment transactions and protected funds will be " +
+      "managed through the secure backend."
+    );
+
+  }
+
+
+  function manageDisputes() {
+
+    alert(
+      "⚖️ Disputes\n\n" +
+      "The production version will provide a dispute " +
+      "management system for clients and freelancers."
+    );
+
+  }
+
+</script>
+
+</body>
+</html>

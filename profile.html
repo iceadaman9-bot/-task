@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Profile - ETHIO TASK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7f5;
+      color: #1f2937;
+    }
+
+    header {
+      background: #0f5132;
+      color: white;
+      padding: 16px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .header-links a {
+      color: white;
+      text-decoration: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 35px auto;
+      padding: 0 18px;
+    }
+
+    .title {
+      margin-bottom: 20px;
+    }
+
+    .title h1 {
+      color: #0f5132;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .title p {
+      color: #667085;
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #eaecf0;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #0f5132;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .profile-name h2 {
+      margin-bottom: 6px;
+      color: #101828;
+    }
+
+    .profile-name p {
+      color: #667085;
+      margin-bottom: 8px;
+    }
+
+    .verified {
+      display: inline-block;
+      background: #ecfdf3;
+      color: #067647;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .form-title {
+      margin: 25px 0 18px;
+      color: #101828;
+      font-size: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      color: #344054;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #0f5132;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .stat {
+      background: #f8faf9;
+      border: 1px solid #eaecf0;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      color: #0f5132;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      font-size: 13px;
+      color: #667085;
+    }
+
+    .save-btn {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #0f5132;
+      color: white;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .save-btn:hover {
+      background: #0b3d26;
+    }
+
+    .security {
+      background: #fff8e7;
+      border: 1px solid #f5d48a;
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .security h3 {
+      color: #8a5a00;
+      margin-bottom: 7px;
+    }
+
+    .security p {
+      color: #594600;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      color: #0f5132;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 650px) {
+
+      header {
+        padding: 14px 4%;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .header-links a {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      main {
+        margin-top: 25px;
+      }
+
+      .profile-card {
+        padding: 20px;
+      }
+
+      .profile-top {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    🇪🇹 ETHIO TASK
+  </div>
+
+  <div class="header-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="tasks.html">Find Tasks</a>
+  </div>
+
+</header>
+
+
+<main>
+
+  <div class="title">
+
+    <h1>My Profile</h1>
+
+    <p>
+      Manage your ETHIO TASK account and professional information.
+    </p>
+
+  </div>
+
+
+  <div class="profile-card">
+
+    <div class="profile-top">
+
+      <div class="avatar">
+        U
+      </div>
+
+      <div class="profile-name">
+
+        <h2>Your Name</h2>
+
+        <p>ETHIO TASK Member</p>
+
+        <span class="verified">
+          ✓ Account Created
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <h3 class="form-title">
+      Personal Information
+    </h3>
+
+
+    <form id="profileForm">
+
+      <div class="two-columns">
+
+        <div class="form-group">
+
+          <label for="fullName">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            id="fullName"
+            placeholder="Enter your full name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="phone">
+            Phone Number
+          </label>
+
+          <input
+            type="tel"
+            id="phone"
+            placeholder="+251 9XXXXXXXX"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="example@email.com"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="role">
+          Account Type
+        </label>
+
+        <select id="role">
+
+          <option value="client">
+            Client — Hire Freelancers
+          </option>
+
+          <option value="freelancer">
+            Freelancer — Find Work
+          </option>
+
+          <option value="both">
+            Both — Client & Freelancer
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="location">
+          Location
+        </label>
+
+        <input
+          type="text"
+          id="location"
+          placeholder="Example: Jimma, Ethiopia"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="bio">
+          About Me
+        </label>
+
+        <textarea
+          id="bio"
+          placeholder="Tell clients or freelancers a little about yourself..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="skills">
+          Skills
+        </label>
+
+        <input
+          type="text"
+          id="skills"
+          placeholder="Example: Graphic Design, Web Development, Writing"
+        >
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <strong>0</strong>
+
+          <span>
+            Completed Jobs
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>0.0 ⭐</strong>
+
+          <span>
+            Rating
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>0</strong>
+
+          <span>
+            Reviews
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="save-btn"
+      >
+        💾 Save Profile
+      </button>
+
+    </form>
+
+
+    <div class="security">
+
+      <h3>
+        🔐 Account Security
+      </h3>
+
+      <p>
+        In the full ETHIO TASK system, profile changes,
+        authentication, phone verification, OTP,
+        passwords and account permissions will be protected
+        by the secure backend system.
+      </p>
+
+    </div>
+
+
+    <a
+      href="dashboard.html"
+      class="back"
+    >
+      ← Back to Dashboard
+    </a>
+
+  </div>
+
+</main>
+
+
+<script>
+
+  document
+    .getElementById("profileForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      alert(
+        "✅ Profile information is ready!\n\n" +
+        "In the backend stage, your profile will be securely " +
+        "saved to the database."
+      );
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find tasks and freelance jobs on ETHIO TASK">
+  <title>Find Tasks - ETHIO TASK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 14px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #22c55e;
+    }
+
+    .top-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .post-btn {
+      background: #22c55e;
+      padding: 9px 13px;
+      border-radius: 8px;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 30px 20px 50px;
+    }
+
+    .title {
+      margin-bottom: 22px;
+    }
+
+    .title h1 {
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .title p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.05);
+      margin-bottom: 25px;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr 180px 130px;
+      gap: 10px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font-size: 14px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #16a34a;
+    }
+
+    .search-btn {
+      border: none;
+      border-radius: 9px;
+      background: #16a34a;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .search-btn:hover {
+      background: #15803d;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+    }
+
+    .filters,
+    .task-card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.05);
+    }
+
+    .filters {
+      padding: 20px;
+      height: fit-content;
+    }
+
+    .filters h3 {
+      margin-bottom: 16px;
+      font-size: 17px;
+    }
+
+    .filter-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #6b7280;
+      margin: 18px 0 9px;
+    }
+
+    .category {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      font-size: 13px;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    .category input {
+      width: auto;
+    }
+
+    .tasks-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 13px;
+    }
+
+    .tasks-header h2 {
+      font-size: 19px;
+    }
+
+    .count {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .task-card {
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    .task-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .task-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #6b7280;
+      line-height: 1.5;
+      font-size: 13px;
+      max-width: 650px;
+    }
+
+    .price {
+      color: #16a34a;
+      font-size: 19px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      background: #f3f4f6;
+      color: #4b5563;
+      padding: 6px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    .task-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 16px;
+      padding-top: 14px;
+      gap: 10px;
+    }
+
+    .client {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .apply-btn {
+      border: none;
+      background: #16a34a;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .apply-btn:hover {
+      background: #15803d;
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      background: white;
+      border-radius: 14px;
+      padding: 45px 20px;
+      color: #6b7280;
+    }
+
+    .empty-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .notice {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 12px;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 850px) {
+      .search-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .search-btn {
+        min-height: 45px;
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .filters {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 13px 15px;
+      }
+
+      .logo {
+        font-size: 17px;
+      }
+
+      .top-links a:not(.post-btn) {
+        display: none;
+      }
+
+      main {
+        padding: 22px 14px 40px;
+      }
+
+      .title h1 {
+        font-size: 25px;
+      }
+
+      .search-row {
+        grid-template-columns: 1fr;
+      }
+
+      .task-top {
+        flex-direction: column;
+      }
+
+      .price {
+        font-size: 17px;
+      }
+
+      .task-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .apply-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    🇪🇹 <span>ETHIO</span> TASK
+  </div>
+
+  <div class="top-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="post-task.html" class="post-btn">+ Post Task</a>
+  </div>
+
+</header>
+
+<main>
+
+  <div class="title">
+    <h1>Find Tasks</h1>
+    <p>Discover work opportunities from clients across Ethiopia.</p>
+  </div>
+
+  <div class="search-box">
+
+    <div class="search-row">
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search tasks, skills or keywords..."
+      >
+
+      <select id="categorySelect">
+        <option value="all">All Categories</option>
+        <option value="design">Graphic Design</option>
+        <option value="development">Web Development</option>
+        <option value="social">Social Media</option>
+        <option value="writing">Writing</option>
+        <option value="local">Local Services</option>
+      </select>
+
+      <button class="search-btn" onclick="searchTasks()">
+        Search
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <aside class="filters">
+
+      <h3>Filters</h3>
+
+      <div class="filter-title">
+        CATEGORY
+      </div>
+
+      <label class="category">
+        <input type="checkbox" value="design">
+        Graphic Design
+      </label>
+
+      <label class="category">
+        <input type="checkbox" value="development">
+        Web Development
+      </label>
+
+      <label class="category">
+        <input type="checkbox" value="social">
+        Social Media
+      </label>
+
+      <label class="category">
+        <input type="checkbox" value="writing">
+        Writing
+      </label>
+
+      <label class="category">
+        <input type="checkbox" value="local">
+        Local Services
+      </label>
+
+      <div class="filter-title">
+        BUDGET
+      </div>
+
+      <label class="category">
+        <input type="checkbox">
+        Under 500 ETB
+      </label>
+
+      <label class="category">
+        <input type="checkbox">
+        500 - 2,000 ETB
+      </label>
+
+      <label class="category">
+        <input type="checkbox">
+        2,000+ ETB
+      </label>
+
+    </aside>
+
+
+    <section>
+
+      <div class="tasks-header">
+
+        <h2>Available Tasks</h2>
+
+        <span class="count" id="taskCount">
+          5 tasks
+        </span>
+
+      </div>
+
+
+      <div id="taskList">
+
+
+        <div
+          class="task-card"
+          data-category="design"
+          data-search="logo graphic design branding"
+        >
+
+          <div class="task-top">
+
+            <div>
+
+              <h3 class="task-title">
+                Design a Professional Business Logo
+              </h3>
+
+              <p class="description">
+                I need a clean and professional logo for a small
+                Ethiopian business.
+              </p>
+
+            </div>
+
+            <div class="price">
+              1,500 ETB
+            </div>
+
+          </div>
+
+          <div class="details">
+            <span class="tag">🎨 Graphic Design</span>
+            <span class="tag">📍 Remote</span>
+            <span class="tag">⏱ 3 Days</span>
+          </div>
+
+          <div class="task-bottom">
+
+            <span class="client">
+              👤 Client • New
+            </span>
+
+            <button class="apply-btn" onclick="applyTask(this)">
+              Apply
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="task-card"
+          data-category="development"
+          data-search="website web development html css"
+        >
+
+          <div class="task-top">
+
+            <div>
+
+              <h3 class="task-title">
+                Build a Simple Business Website
+              </h3>
+
+              <p class="description">
+                Looking for someone to build a responsive website
+                for a local business.
+              </p>
+
+            </div>
+
+            <div class="price">
+              4,000 ETB
+            </div>
+
+          </div>
+
+          <div class="details">
+            <span class="tag">💻 Web Development</span>
+            <span class="tag">📍 Remote</span>
+            <span class="tag">⏱ 7 Days</span>
+          </div>
+
+          <div class="task-bottom">
+
+            <span class="client">
+              👤 Client • New
+            </span>
+
+            <button class="apply-btn" onclick="applyTask(this)">
+              Apply
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="task-card"
+          data-category="social"
+          data-search="facebook social media reels content"
+        >
+
+          <div class="task-top">
+
+            <div>
+
+              <h3 class="task-title">
+                Manage Facebook Social Media Page
+              </h3>
+
+              <p class="description">
+                Need help creating posts and managing a Facebook
+                page for one month.
+              </p>
+
+            </div>
+
+            <div class="price">
+              2,500 ETB
+            </div>
+
+          </div>
+
+          <div class="details">
+            <span class="tag">📱 Social Media</span>
+            <span class="tag">📍 Remote</span>
+            <span class="tag">⏱ 30 Days</span>
+          </div>
+
+          <div class="task-bottom">
+
+            <span class="client">
+              👤 Client • New
+            </span>
+
+            <button class="apply-btn" onclick="applyTask(this)">
+              Apply
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="task-card"
+          data-category="writing"
+          data-search="writing article amharic english translation"
+        >
+
+          <div class="task-top">
+
+            <div>
+
+              <h3 class="task-title">
+                Write and Translate Articles
+              </h3>
+
+              <p class="description">
+                Need articles written and translated between
+                Amharic and English.
+              </p>
+
+            </div>
+
+            <div class="price">
+              1,000 ETB
+            </div>
+
+          </div>
+
+          <div class="details">
+            <span class="tag">✍️ Writing</span>
+            <span class="tag">📍 Remote</span>
+            <span class="tag">⏱ 2 Days</span>
+          </div>
+
+          <div class="task-bottom">
+
+            <span class="client">
+              👤 Client • New
+            </span>
+
+            <button class="apply-btn" onclick="applyTask(this)">
+              Apply
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="task-card"
+          data-category="local"
+          data-search="delivery local service errands"
+        >
+
+          <div class="task-top">
+
+            <div>
+
+              <h3 class="task-title">
+                Local Delivery Assistance
+              </h3>
+
+              <p class="description">
+                Looking for someone to help with a local delivery
+                task.
+              </p>
+
+            </div>
+
+            <div class="price">
+              600 ETB
+            </div>
+
+          </div>
+
+          <div class="details">
+            <span class="tag">🔧 Local Services</span>
+            <span class="tag">📍 Local</span>
+            <span class="tag">⏱ 1 Day</span>
+          </div>
+
+          <div class="task-bottom">
+
+            <span class="client">
+              👤 Client • New
+            </span>
+
+            <button class="apply-btn" onclick="applyTask(this)">
+              Apply
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="empty" id="emptyState">
+
+        <div class="empty-icon">
+          🔎
+        </div>
+
+        <h3>No tasks found</h3>
+
+        <p>
+          Try another search or category.
+        </p>
+
+      </div>
+
+
+      <div class="notice">
+        🔐 <strong>ETHIO TASK Payment Protection:</strong>
+        In the final system, client payments will be held securely
+        during the job and released according to the agreed
+        completion and dispute process.
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<script>
+
+  function searchTasks() {
+
+    const search =
+      document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const category =
+      document
+        .getElementById("categorySelect")
+        .value;
+
+    const cards =
+      document.querySelectorAll(".task-card");
+
+    let visible = 0;
+
+    cards.forEach(card => {
+
+      const text =
+        card.dataset.search.toLowerCase();
+
+      const cardCategory =
+        card.dataset.category;
+
+      const matchesSearch =
+        !search || text.includes(search);
+
+      const matchesCategory =
+        category === "all" ||
+        cardCategory === category;
+
+      if (matchesSearch && matchesCategory) {
+
+        card.style.display = "block";
+        visible++;
+
+      } else {
+
+        card.style.display = "none";
+
+      }
+
+    });
+
+    document.getElementById("taskCount").textContent =
+      visible + (visible === 1 ? " task" : " tasks");
+
+    document.getElementById("emptyState").style.display =
+      visible === 0 ? "block" : "none";
+  }
+
+
+  document
+    .getElementById("searchInput")
+    .addEventListener("keyup", function(event) {
+
+      if (event.key === "Enter") {
+        searchTasks();
+      }
+
+    });
+
+
+  function applyTask(button) {
+
+    alert(
+      "Application feature is ready for the next stage. Real applications will be saved in the ETHIO TASK database."
+    );
+
+  }
+
+</script>
+
+</body>
+</html>

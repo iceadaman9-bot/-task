@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - ETHIO TASK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .logo span {
+      color: #16a34a;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .role-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .roles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .role {
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .role:hover {
+      border-color: #16a34a;
+    }
+
+    .role input {
+      display: none;
+    }
+
+    .role:has(input:checked) {
+      border-color: #16a34a;
+      background: #f0fdf4;
+      color: #15803d;
+    }
+
+    label.field {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 16px;
+    }
+
+    input:focus {
+      border-color: #16a34a;
+    }
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 5px 0 20px;
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .terms input {
+      margin-top: 2px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 9px;
+      background: #16a34a;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #15803d;
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 20px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .login a,
+    .back {
+      color: #16a34a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 22px;
+      }
+
+      .roles {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">
+      🇪🇹 <span>ETHIO</span> TASK
+    </div>
+
+    <div class="card">
+
+      <h1>Create Account</h1>
+
+      <p class="subtitle">
+        Join ETHIO TASK and start working or hiring.
+      </p>
+
+      <div class="role-title">
+        I want to:
+      </div>
+
+      <div class="roles">
+
+        <label class="role">
+          <input type="radio" name="role" value="client" checked>
+          👤 Hire a Freelancer
+        </label>
+
+        <label class="role">
+          <input type="radio" name="role" value="freelancer">
+          💼 Find Work
+        </label>
+
+      </div>
+
+      <form id="registerForm">
+
+        <label class="field" for="name">
+          Full Name
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter your full name"
+          required
+        >
+
+        <label class="field" for="phone">
+          Phone Number
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          placeholder="09XXXXXXXX"
+          required
+        >
+
+        <label class="field" for="email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required
+        >
+
+        <label class="field" for="password">
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="At least 8 characters"
+          minlength="8"
+          required
+        >
+
+        <label class="field" for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm your password"
+          minlength="8"
+          required
+        >
+
+        <label class="terms">
+          <input type="checkbox" id="terms" required>
+          <span>
+            I agree to the ETHIO TASK Terms of Service and Privacy Policy.
+          </span>
+        </label>
+
+        <button type="submit">
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="login">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </div>
+
+      <a href="Index.html" class="back">
+        ← Back to Home
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    document
+      .getElementById("registerForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const password =
+          document.getElementById("password").value;
+
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
+
+        alert(
+          "Registration form is ready. Real account creation, OTP verification and secure login will be connected to the backend."
+        );
+      });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post a Task - ETHIO TASK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7f5;
+      color: #1f2937;
+    }
+
+    header {
+      background: #0f5132;
+      color: white;
+      padding: 16px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .header-links a {
+      color: white;
+      text-decoration: none;
+      background: rgba(255,255,255,0.12);
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 35px auto;
+      padding: 0 18px;
+    }
+
+    .page-title {
+      margin-bottom: 20px;
+    }
+
+    .page-title h1 {
+      font-size: 30px;
+      color: #0f5132;
+      margin-bottom: 8px;
+    }
+
+    .page-title p {
+      color: #667085;
+    }
+
+    .card {
+      background: white;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #0f5132;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .work-type {
+      display: flex;
+      gap: 15px;
+    }
+
+    .work-option {
+      flex: 1;
+      border: 1px solid #d0d5dd;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .work-option input {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .payment-box {
+      background: #ecfdf3;
+      border: 1px solid #a7f3d0;
+      padding: 18px;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+
+    .payment-box h3 {
+      color: #067647;
+      margin-bottom: 8px;
+    }
+
+    .payment-box p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #344054;
+    }
+
+    .terms {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .terms input {
+      width: auto;
+      margin-top: 3px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #0f5132;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #0b3d26;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #0f5132;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #locationGroup {
+      display: none;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        padding: 14px 4%;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .header-links a {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      main {
+        margin-top: 25px;
+      }
+
+      .page-title h1 {
+        font-size: 25px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .work-type {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🇪🇹 ETHIO TASK</div>
+
+  <div class="header-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="tasks.html">Find Tasks</a>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-title">
+    <h1>Post a Task</h1>
+    <p>Tell skilled people what you need and receive applications.</p>
+  </div>
+
+  <div class="card">
+
+    <form id="taskForm">
+
+      <div class="form-group">
+        <label for="taskTitle">Task Title</label>
+        <input
+          type="text"
+          id="taskTitle"
+          placeholder="Example: Design a logo for my business"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+
+        <select id="category" required>
+          <option value="">Select a category</option>
+          <option value="Graphic Design">Graphic Design</option>
+          <option value="Web Development">Web Development</option>
+          <option value="Social Media">Social Media</option>
+          <option value="Writing">Writing & Translation</option>
+          <option value="Local Services">Local Services</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Task Description</label>
+
+        <textarea
+          id="description"
+          placeholder="Explain clearly what you need, what the freelancer should deliver, and any important requirements..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="two-columns">
+
+        <div class="form-group">
+          <label for="budget">Budget (ETB)</label>
+
+          <input
+            type="number"
+            id="budget"
+            min="1"
+            placeholder="Example: 1500"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="deadline">Deadline</label>
+
+          <input
+            type="date"
+            id="deadline"
+            required
+          >
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Work Type</label>
+
+        <div class="work-type">
+
+          <label class="work-option">
+            <input
+              type="radio"
+              name="workType"
+              value="Remote"
+              checked
+            >
+            Remote
+          </label>
+
+          <label class="work-option">
+            <input
+              type="radio"
+              name="workType"
+              value="Local"
+            >
+            Local
+          </label>
+
+        </div>
+
+      </div>
+
+      <div class="form-group" id="locationGroup">
+
+        <label for="location">Location</label>
+
+        <input
+          type="text"
+          id="location"
+          placeholder="Example: Jimma, Ethiopia"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="skills">Required Skills (Optional)</label>
+
+        <input
+          type="text"
+          id="skills"
+          placeholder="Example: Photoshop, Illustrator, Canva"
+        >
+
+      </div>
+
+      <div class="payment-box">
+
+        <h3>🔒 Payment Protection</h3>
+
+        <p>
+          ETHIO TASK is designed to protect both clients and freelancers.
+          In the full version, your payment will be securely committed before
+          the work starts and released according to the agreed completion
+          process. If there is a disagreement, the platform dispute process
+          will be used.
+        </p>
+
+      </div>
+
+      <div class="terms">
+
+        <input type="checkbox" id="agree" required>
+
+        <label for="agree">
+          I confirm that the task information is accurate and I agree to the
+          ETHIO TASK task and payment rules.
+        </label>
+
+      </div>
+
+      <button type="submit" class="submit-btn">
+        🚀 Post Task
+      </button>
+
+    </form>
+
+    <a href="tasks.html" class="back-link">
+      ← Back to Find Tasks
+    </a>
+
+  </div>
+
+</main>
+
+<script>
+
+  const workTypeInputs = document.querySelectorAll(
+    'input[name="workType"]'
+  );
+
+  const locationGroup = document.getElementById(
+    "locationGroup"
+  );
+
+  const locationInput = document.getElementById(
+    "location"
+  );
+
+  workTypeInputs.forEach(function(input) {
+
+    input.addEventListener("change", function() {
+
+      if (this.value === "Local") {
+
+        locationGroup.style.display = "block";
+        locationInput.required = true;
+
+      } else {
+
+        locationGroup.style.display = "none";
+        locationInput.required = false;
+        locationInput.value = "";
+
+      }
+
+    });
+
+  });
+
+
+  document.getElementById("taskForm").addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+      const budget = Number(
+        document.getElementById("budget").value
+      );
+
+      const deadline =
+        document.getElementById("deadline").value;
+
+      const today =
+        new Date().toISOString().split("T")[0];
+
+      if (budget <= 0) {
+
+        alert("Please enter a valid budget.");
+
+        return;
+      }
+
+      if (deadline < today) {
+
+        alert("Deadline cannot be in the past.");
+
+        return;
+      }
+
+      const selectedWorkType =
+        document.querySelector(
+          'input[name="workType"]:checked'
+        ).value;
+
+      if (
+        selectedWorkType === "Local" &&
+        locationInput.value.trim() === ""
+      ) {
+
+        alert("Please enter the task location.");
+
+        return;
+      }
+
+      alert(
+        "✅ Task form completed successfully!\n\n" +
+        "The real task posting, database storage, " +
+        "payment commitment and freelancer applications " +
+        "will be connected in the backend stage."
+      );
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
